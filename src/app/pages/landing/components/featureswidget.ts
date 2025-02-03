@@ -1,5 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { EscolaService } from '../../../services/escola.service';
+import { PlanoAcaoService } from '../../../services/plano-acao.service';
+import { PessoaService } from '../../../services/pessoa.service';
+import { EventoService } from '../../../services/evento.service';
 
 @Component({
     selector: 'features-widget',
@@ -65,9 +69,73 @@ import { CommonModule } from '@angular/common';
         </div>
     </div>`
 })
-export class FeaturesWidget {
+export class FeaturesWidget implements OnInit {
     qtdEscolas: number = 0;
     qtdPlanosAcao: number = 0;
     qtdPessoas: number = 0;
     qtdEventos: number = 0;
+
+    constructor(
+        private escolaService: EscolaService,
+        private planoAcaoService: PlanoAcaoService,
+        private pessoaService: PessoaService,
+        private eventoService: EventoService
+    ) {}
+
+    ngOnInit() {
+        this.obterTotais();
+    }
+
+    obterTotais() {
+        this.obterQtdEscolas();
+        this.obterQtdPlanosAcao();
+        this.obterQtdPessoas();
+        this.obterQtdEventos();
+    }
+
+    
+    obterQtdEscolas(){
+        this.escolaService.obterTotaisEscolas().subscribe(
+            (response) => {
+                this.qtdEscolas = Number(response);
+            },
+            (error) => {
+                console.error(error);
+            }
+        );
+    }
+
+    obterQtdPlanosAcao(){
+        this.planoAcaoService.obterTotaisPlanosAcao().subscribe(
+            (response) => {
+                this.qtdPlanosAcao = Number(response);
+            },
+            (error) => {
+                console.error(error);
+            }
+        );
+    }
+
+    obterQtdPessoas(){
+        this.pessoaService.obterTotaisPessoas().subscribe(
+            (response) => {
+                this.qtdPessoas = Number(response);
+            },
+            (error) => {
+                console.error(error);
+            }
+        );
+    }
+
+    obterQtdEventos(){
+        this.eventoService.obterTotaisEventos().subscribe(
+            (response) => {
+                this.qtdEventos = Number(response);
+            },
+            (error) => {
+                console.error(error);
+            }
+        );
+    }
+
 }
