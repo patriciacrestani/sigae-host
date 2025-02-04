@@ -33,7 +33,7 @@ import { EventoService } from '../../../services/evento.service';
                         </div>
                         <div class="block ml-6">
                             <div class="mb-2 text-surface-900 dark:text-surface-0 text-xl font-semibold"><span class="text-2xl">{{ qtdPessoas }}</span> pessoas cadastradas!</div>
-                            <span class="text-surface-600 dark:text-surface-200" href="/pessoas">Ir para pessoas <i class="pi pi-external-link !text-sm pl-1"></i></span>
+                            <a class="text-surface-600 dark:text-surface-200" href="/pessoas">Ir para pessoas <i class="pi pi-external-link !text-sm pl-1"></i></a>
                         </div>
                     </div>
                 </div>
@@ -47,7 +47,7 @@ import { EventoService } from '../../../services/evento.service';
                         </div>
                         <div class="block ml-6">
                             <div class="mb-2 text-surface-900 dark:text-surface-0 text-xl font-semibold"><span class="text-2xl">{{ qtdPlanosAcao }}</span> planos de ação cadastrados!</div>
-                            <span class="text-surface-600 dark:text-surface-200" href="/planos-acao">Ir para planos de ação <i class="pi pi-external-link !text-sm pl-1"></i></span>
+                            <a class="text-surface-600 dark:text-surface-200" href="/planos-acao">Ir para planos de ação <i class="pi pi-external-link !text-sm pl-1"></i></a>
                         </div>
                     </div>
                 </div>
@@ -61,7 +61,7 @@ import { EventoService } from '../../../services/evento.service';
                         </div>
                         <div class="block ml-6">
                             <div class="mb-2 text-surface-900 dark:text-surface-0 text-xl font-semibold"><span class="text-2xl">{{ qtdEventos }}</span> eventos hoje.</div>
-                            <span class="text-surface-600 dark:text-surface-200" href="/agenda">Ir para agenda <i class="pi pi-external-link !text-sm pl-1"></i></span>
+                            <a class="text-surface-600 dark:text-surface-200" href="/agenda">Ir para agenda <i class="pi pi-external-link !text-sm pl-1"></i></a>
                         </div>
                     </div>
                 </div>

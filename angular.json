@@ -16,7 +16,11 @@
 			"architect": {
 				"build": {
 					"builder": "@angular-architects/native-federation:build",
-					"options": {},
+					"options": {
+						"assets": [
+							"src/assets/images"
+						]
+					},
 					"configurations": {
 						"production": {
 							"target": "sigae-host:esbuild:production"
@@ -34,7 +38,10 @@
 						"target": "sigae-host:serve-original:development",
 						"rebuildDelay": 0,
 						"dev": true,
-						"port": 0
+						"port": 0,
+						"assets": [
+							"src/assets/images"
+						]
 					}
 				},
 				"extract-i18n": {
@@ -50,6 +57,7 @@
 						"tsConfig": "tsconfig.spec.json",
 						"inlineStyleLanguage": "scss",
 						"assets": [
+							"src/assets/images",
 							{
 								"glob": "**/*",
 								"input": "public"
@@ -74,6 +82,7 @@
 						"tsConfig": "tsconfig.app.json",
 						"inlineStyleLanguage": "scss",
 						"assets": [
+							"src/assets/images",
 							{
 								"glob": "**/*",
 								"input": "public"

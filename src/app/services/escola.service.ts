@@ -11,4 +11,8 @@ export class EscolaService {
   obterTotaisEscolas() {
     return this.http.get('https://example.com/escolas/total');
   }
+
+  obterEscolas() {
+    return this.http.get("https://example.com/escolas");
+  }
 }

@@ -11,5 +11,9 @@ export class PessoaService {
   obterTotaisPessoas() {
     return this.http.get('https://example.com/pessoas/total');
   }
+  
+  obterPessoas() {
+    return this.http.get('https://example.com/pessoas');
+  }
 }
 
