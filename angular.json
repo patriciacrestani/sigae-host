@@ -17,6 +17,7 @@
 				"build": {
 					"builder": "@angular-architects/native-federation:build",
 					"options": {
+						"externalDependencies":[""],
 						"assets": [
 							"src/assets/images",
 							"src/assets/federation.manifest.json"
@@ -36,6 +37,7 @@
 				"serve": {
 					"builder": "@angular-architects/native-federation:build",
 					"options": {
+						"externalDependencies":[""],
 						"target": "sigae-host:serve-original:development",
 						"rebuildDelay": 0,
 						"dev": true,
@@ -76,6 +78,7 @@
 				"esbuild": {
 					"builder": "@angular-devkit/build-angular:application",
 					"options": {
+						"externalDependencies":[""],
 						"outputPath": "dist/sigae-host",
 						"index": "src/index.html",
 						"browser": "src/main.ts",
