@@ -24,7 +24,7 @@ export class AppMenu {
                 items: [
                     { label: 'Home', icon: 'pi pi-fw pi-home', routerLink: ['/'] },
                     { label: 'Agenda', icon: 'pi pi-fw pi-calendar', routerLink: ['/agenda'] },
-                    { label: 'Planos de ação', icon: 'pi pi-fw pi-file-edit', routerLink: ['/planos-acao'] },
+                    { label: 'Planos de ação', icon: 'pi pi-fw pi-file-edit', routerLink: ['/plano-acao'] },
                 ]
             },
             {
