@@ -38,48 +38,16 @@ import { EventoService } from '../../../services/evento.service';
                     </div>
                 </div>
             </div>
-
-            <div class="col-span-12 md:col-span-4 p-0 lg:pr-8 mt-6 lg:mt-0">
-                <div style="padding: 2px; border-radius: 10px; background: linear-gradient(90deg, rgba(145, 210, 204, 0.2), rgba(160, 210, 250, 0.2)), linear-gradient(180deg, rgba(187, 199, 205, 0.2), rgba(145, 210, 204, 0.2))">
-                    <div class="flex flex-column items-center p-4 bg-surface-0 dark:bg-surface-900 h-full" style="border-radius: 8px">
-                        <div class="flex items-center justify-center bg-teal-200" style="width: 3.5rem; height: 3.5rem; border-radius: 10px">
-                            <i class="pi pi-fw pi-file-edit !text-2xl text-teal-700"></i>
-                        </div>
-                        <div class="block ml-6">
-                            <div class="mb-2 text-surface-900 dark:text-surface-0 text-xl font-semibold"><span class="text-2xl">{{ qtdPlanosAcao }}</span> planos de ação cadastrados!</div>
-                            <a class="text-surface-600 dark:text-surface-200" href="/planos-acao">Ir para planos de ação <i class="pi pi-external-link !text-sm pl-1"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-span-12 md:col-span-4 p-0 lg:pr-8 mt-6 lg:mt-0">
-                <div style="padding: 2px; border-radius: 10px; background: linear-gradient(90deg, rgba(145, 210, 204, 0.2), rgba(212, 162, 221, 0.2)), linear-gradient(180deg, rgba(251, 199, 145, 0.2), rgba(160, 210, 250, 0.2))">
-                    <div class="flex flex-column items-center p-4 bg-surface-0 dark:bg-surface-900 h-full" style="border-radius: 8px">
-                        <div class="flex items-center justify-center bg-blue-200" style="width: 3.5rem; height: 3.5rem; border-radius: 10px">
-                            <i class="pi pi-fw pi-calendar !text-2xl text-blue-700"></i>
-                        </div>
-                        <div class="block ml-6">
-                            <div class="mb-2 text-surface-900 dark:text-surface-0 text-xl font-semibold"><span class="text-2xl">{{ qtdEventos }}</span> eventos hoje.</div>
-                            <a class="text-surface-600 dark:text-surface-200" href="/agenda">Ir para agenda <i class="pi pi-external-link !text-sm pl-1"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>`
 })
 export class FeaturesWidget implements OnInit {
     qtdEscolas: number = 0;
-    qtdPlanosAcao: number = 0;
     qtdPessoas: number = 0;
-    qtdEventos: number = 0;
 
     constructor(
         private escolaService: EscolaService,
-        private planoAcaoService: PlanoAcaoService,
         private pessoaService: PessoaService,
-        private eventoService: EventoService
     ) {}
 
     ngOnInit() {
@@ -88,9 +56,7 @@ export class FeaturesWidget implements OnInit {
 
     obterTotais() {
         this.obterQtdEscolas();
-        this.obterQtdPlanosAcao();
         this.obterQtdPessoas();
-        this.obterQtdEventos();
     }
 
     
@@ -98,17 +64,6 @@ export class FeaturesWidget implements OnInit {
         this.escolaService.obterTotaisEscolas().subscribe(
             (response) => {
                 this.qtdEscolas = Number(response);
-            },
-            (error) => {
-                console.error(error);
-            }
-        );
-    }
-
-    obterQtdPlanosAcao(){
-        this.planoAcaoService.obterTotaisPlanosAcao().subscribe(
-            (response) => {
-                this.qtdPlanosAcao = Number(response);
             },
             (error) => {
                 console.error(error);
@@ -126,16 +81,4 @@ export class FeaturesWidget implements OnInit {
             }
         );
     }
-
-    obterQtdEventos(){
-        this.eventoService.obterTotaisEventos().subscribe(
-            (response) => {
-                this.qtdEventos = Number(response);
-            },
-            (error) => {
-                console.error(error);
-            }
-        );
-    }
-
 }
