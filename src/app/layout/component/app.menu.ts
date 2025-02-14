@@ -24,14 +24,14 @@ export class AppMenu {
                 items: [
                     { label: 'Home', icon: 'pi pi-fw pi-home', routerLink: ['/'] },
                     { label: 'Agenda', icon: 'pi pi-fw pi-calendar', routerLink: ['/agenda'] },
-                    { label: 'Planos de ação', icon: 'pi pi-fw pi-file-edit', routerLink: ['/plano-acao'] },
+                    { label: 'Planos de ação', icon: 'pi pi-fw pi-file-edit', routerLink: ['/plano-acao'] }
                 ]
             },
             {
                 label: 'Cadastros',
                 items: [
-                    { label: 'Escolas', icon: 'pi pi-fw pi-building-columns', routerLink: ['/escolas'] },
-                    { label: 'Pessoas', icon: 'pi pi-fw pi-user', routerLink: ['/pessoas'] },
+                    { label: 'Escolas', icon: 'pi pi-fw pi-building-columns', routerLink: ['/cadastros/escolas'] },
+                    { label: 'Pessoas', icon: 'pi pi-fw pi-user', routerLink: ['/pessoas'] }
                 ]
             }
         ];
