@@ -27,13 +27,21 @@ module.exports = withNativeFederation({
         esm: true
       }
     },
+    "primeicons": {
+      transient: true,
+      packageInfo: {
+        entryPoint: "node_modules/primeicons/package.json",
+        version: "7.0.0",
+        esm: true,
+      },
+    },
   },
 
   skip: [
     'rxjs/ajax',
     'rxjs/fetch',
     'rxjs/testing',
-    'rxjs/webSocket',
+    'rxjs/webSocket'
     // Add further packages you don't need at runtime
   ]
 
