@@ -18,8 +18,7 @@ export const appRoutes: Routes = [
         children: [
             { path: '', component: HomeComponent },
             { path: 'plano-acao', loadChildren: () => loadRemoteModule('plano-acao', './routes').then((m)=> m.appRoutes) },
-            // { path: 'cadastros', loadComponent: () => loadRemoteModule('cadastros', './Component').then((m)=> m.AppComponent) },
-            // { path: 'agenda', loadComponent: () => loadRemoteModule('agenda', './Component').then((m)=> m.AppComponent) }
+            { path: 'cadastros', loadChildren: () => loadRemoteModule('cadastros', './routes').then((m)=> m.appRoutes) },
         ]
     },
     { path: 'login', component: Login },
