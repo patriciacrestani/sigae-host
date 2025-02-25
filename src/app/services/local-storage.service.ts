@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { MenuMaster } from '../models/menu-master';
 
 @Injectable({
   providedIn: 'root'
@@ -10,14 +11,19 @@ export class LocalStorageService {
   constructor() { }
 
   setItem(value: any): void {
+    console.log(value);
     localStorage.setItem(LocalStorageService.MenuMasterKey, JSON.stringify(value));
+    const event = new Event('storageChanged');
+    window.dispatchEvent(event);
   }
 
-  getItem<T>(): T | null {
-    const value = localStorage.getItem(LocalStorageService.MenuMasterKey);
-    if (value) {
-      return JSON.parse(value);
-    }
+  possuiItem(): boolean {
+    return !!localStorage.getItem(LocalStorageService.MenuMasterKey);
+  }
+
+  getItem(): MenuMaster | null {
+    const aux = localStorage.getItem(LocalStorageService.MenuMasterKey);
+    if(aux) return new MenuMaster(JSON.parse(aux));
     return null;
   }
 

@@ -5,13 +5,10 @@ export class MenuMaster {
     escola: Escola;
     pessoa: Pessoa;
 
-    constructor(escola, pessoa) {
-        if(!!escola) {
-            this.escola = escola;
-        }
-
-        if(!!pessoa) {
-            this.pessoa = pessoa;
-        }
+    constructor(dados?) {
+        console.log(dados);
+        if(!dados) return;
+        this.escola = new Escola(dados['escola']);
+        this.pessoa = new Pessoa(dados['pessoa']);
     }
 }

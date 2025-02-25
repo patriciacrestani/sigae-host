@@ -11,6 +11,8 @@ import { EscolaService } from '../../services/escola.service';
 import { PessoaService } from '../../services/pessoa.service';
 import { LocalStorageService } from '../../services/local-storage.service';
 import { MenuMaster } from '../../models/menu-master';
+import { Escola } from '../../models/escola';
+import { Pessoa } from '../../models/pessoa';
 
 @Component({
     selector: 'app-topbar',
@@ -71,10 +73,10 @@ import { MenuMaster } from '../../models/menu-master';
 })
 export class AppTopbar {
     items!: MenuItem[];
-    escolas: any;
-    escolaSelecionada;
-    pessoas: any;
-    pessoaSelecionada;
+    escolas: Escola[];
+    escolaSelecionada: Escola | null;
+    pessoas: Pessoa[];
+    pessoaSelecionada: Pessoa | null;
 
     constructor(
         public layoutService: LayoutService,
@@ -84,6 +86,16 @@ export class AppTopbar {
     ) {
         this.obterEscolas();
         this.obterPessoas();
+        this.checkLocalStorage();
+    }
+
+    checkLocalStorage() {
+        if(this.localStorageService.possuiItem()) {
+            let menuMaster = this.localStorageService.getItem();
+            console.log(menuMaster);
+            if(!!menuMaster && !!menuMaster.escola && !!menuMaster.escola.id) this.escolaSelecionada = new Escola(menuMaster.escola);
+            if(!!menuMaster && !!menuMaster.pessoa && !!menuMaster.pessoa.id) this.pessoaSelecionada = new Pessoa(menuMaster.pessoa);
+        }
     }
 
     toggleDarkMode() {
@@ -120,22 +132,28 @@ export class AppTopbar {
         if(!!escolaEvent.value && !this.checkEscolaVinculadaPessoa(escolaEvent.value)) {
             this.pessoaSelecionada = null;
             this.obterPessoas(escolaEvent.value.id);
+            this.preencheEscola(escolaEvent.value.id);
         }
         this.atualizaLocalStorage();
     }
 
     preencheEscola(escolaId) {
-        this.escolaSelecionada = this.escolas.find(e => e.id == escolaId);
+        this.escolaSelecionada = new Escola(this.escolas.find(e => e.id == escolaId));
+    }
+
+    preenchePessoa(pessoaId) {
+        this.pessoaSelecionada = new Pessoa(this.pessoas.find(e => e.id == pessoaId));
     }
 
     changePessoa(pessoaEvent) {
         if(!!pessoaEvent.value && !this.checkPessoaVinculadaEscola(pessoaEvent.value)) {
             this.preencheEscola(pessoaEvent.value.escola.id);
+            this.preenchePessoa(pessoaEvent.value.id);
         }
         this.atualizaLocalStorage();
     }
 
     atualizaLocalStorage() {
-        this.localStorageService.setItem(new MenuMaster(this.escolaSelecionada, this.pessoaSelecionada));
+        this.localStorageService.setItem(new MenuMaster({'escola': this.escolaSelecionada, 'pessoa': this.pessoaSelecionada}));
     }
 }
