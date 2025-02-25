@@ -1,4 +1,4 @@
 {
 	"plano-acao": "http://localhost:4201/remoteEntry.json",
-	"cadastros": "http://localhost:4202/remoteEntry.json"
+    "cadastros": "http://localhost:4202/remoteEntry.json"
 }
