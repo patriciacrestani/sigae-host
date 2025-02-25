@@ -11,7 +11,6 @@ export class LocalStorageService {
   constructor() { }
 
   setItem(value: any): void {
-    console.log(value);
     localStorage.setItem(LocalStorageService.MenuMasterKey, JSON.stringify(value));
     const event = new Event('storageChanged');
     window.dispatchEvent(event);

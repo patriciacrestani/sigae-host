@@ -6,7 +6,6 @@ export class MenuMaster {
     pessoa: Pessoa;
 
     constructor(dados?) {
-        console.log(dados);
         if(!dados) return;
         this.escola = new Escola(dados['escola']);
         this.pessoa = new Pessoa(dados['pessoa']);

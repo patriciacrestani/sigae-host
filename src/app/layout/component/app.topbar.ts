@@ -92,7 +92,6 @@ export class AppTopbar {
     checkLocalStorage() {
         if(this.localStorageService.possuiItem()) {
             let menuMaster = this.localStorageService.getItem();
-            console.log(menuMaster);
             if(!!menuMaster && !!menuMaster.escola && !!menuMaster.escola.id) this.escolaSelecionada = new Escola(menuMaster.escola);
             if(!!menuMaster && !!menuMaster.pessoa && !!menuMaster.pessoa.id) this.pessoaSelecionada = new Pessoa(menuMaster.pessoa);
         }
