@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -13,11 +13,13 @@ import { LocalStorageService } from '../../services/local-storage.service';
 import { MenuMaster } from '../../models/menu-master';
 import { Escola } from '../../models/escola';
 import { Pessoa } from '../../models/pessoa';
+import { ButtonModule } from 'primeng/button';
+import { AutenticacaoService } from 'autenticacao';
 
 @Component({
     selector: 'app-topbar',
     standalone: true,
-    imports: [RouterModule, CommonModule, FormsModule, StyleClassModule, Select, FloatLabel],
+    imports: [RouterModule, CommonModule, FormsModule, StyleClassModule, Select, FloatLabel, ButtonModule],
     template: ` <div class="layout-topbar">
         <div class="layout-topbar-logo-container">
             <button class="layout-menu-button layout-topbar-action" (click)="layoutService.onMenuToggle()">
@@ -68,6 +70,8 @@ import { Pessoa } from '../../models/pessoa';
                     </p-floatlabel>
                 </div>
             </div>
+
+            <p-button label="Log in" variant="text" (onClick)="login()" />
         </div>
     </div>`
 })
@@ -83,6 +87,7 @@ export class AppTopbar {
         private escolaService: EscolaService,
         private pessoaService: PessoaService,
         private localStorageService: LocalStorageService,
+        private autenticacaoService: AutenticacaoService
     ) {
         this.obterEscolas();
         this.obterPessoas();
@@ -154,5 +159,9 @@ export class AppTopbar {
 
     atualizaLocalStorage() {
         this.localStorageService.setItem(new MenuMaster({'escola': this.escolaSelecionada, 'pessoa': this.pessoaSelecionada}));
+    }
+
+    login() {
+        this.autenticacaoService.login();
     }
 }
