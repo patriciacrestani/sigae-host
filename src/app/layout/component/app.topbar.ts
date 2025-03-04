@@ -15,6 +15,7 @@ import { Escola } from '../../models/escola';
 import { Pessoa } from '../../models/pessoa';
 import { ButtonModule } from 'primeng/button';
 import { AutenticacaoService } from 'autenticacao';
+import { User } from '@auth0/auth0-angular';
 
 @Component({
     selector: 'app-topbar',
@@ -71,7 +72,13 @@ import { AutenticacaoService } from 'autenticacao';
                 </div>
             </div>
 
-            <p-button label="Log in" variant="text" (onClick)="login()" />
+            @if(this.isAuthenticated) {
+                <p class="m-auto">Olá, {{ this.getName() }}</p>
+                <p-button label="Sair" variant="text" (onClick)="logout()" />
+            } 
+            @else {
+                <p-button label="Entrar" variant="text" (onClick)="login()" />
+            }
         </div>
     </div>`
 })
@@ -81,6 +88,9 @@ export class AppTopbar {
     escolaSelecionada: Escola | null;
     pessoas: Pessoa[];
     pessoaSelecionada: Pessoa | null;
+
+    isAuthenticated: boolean;
+    usuario: User | null | undefined;
 
     constructor(
         public layoutService: LayoutService,
@@ -92,6 +102,29 @@ export class AppTopbar {
         this.obterEscolas();
         this.obterPessoas();
         this.checkLocalStorage();
+        this.checkUsuarioLogado();
+    }
+
+    async checkUsuarioLogado() {
+        // if(this.autenticacaoService.isAuthenticated) {
+        //     this.usuario = this.autenticacaoService.user;
+        //     this.isAuthenticated = true;
+        // }
+        // this.isAuthenticated = false;
+
+        
+        await this.autenticacaoService.isAuthenticated.subscribe({ next:(v) => this.isAuthenticated = v, error: (e) => this.isAuthenticated = false});
+        await this.autenticacaoService.user.subscribe({ next:(v) => this.usuario = v, error: (e) => console.error(e)});
+        console.log("isAuthenticated", this.isAuthenticated);
+        console.log("usuario", this.usuario);
+    }
+
+    getName(): string {
+        if(!!this.usuario && !!this.usuario.name) {
+            let names = this.usuario?.name.split('@');
+            return names[0];
+        }
+        return "";
     }
 
     checkLocalStorage() {
@@ -161,7 +194,12 @@ export class AppTopbar {
         this.localStorageService.setItem(new MenuMaster({'escola': this.escolaSelecionada, 'pessoa': this.pessoaSelecionada}));
     }
 
+
     login() {
-        this.autenticacaoService.login();
+        this.autenticacaoService.loginWithRedirect();
+    }
+
+    logout() {
+        this.autenticacaoService.logout();
     }
 }
