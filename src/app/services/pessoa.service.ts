@@ -1,19 +1,22 @@
+import { loadRemoteModule } from '@angular-architects/native-federation';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class PessoaService {
+    constructor(private http: HttpClient) {}
 
-  constructor(private http: HttpClient) { }
+    async obterTotalDePessoas(): Promise<number> {
+        const remoteModule = await loadRemoteModule('cadastros', './PessoaService');
+        console.log(remoteModule);
 
-  obterTotaisPessoas() {
-    return this.http.get('https://example.com/pessoas/total');
-  }
-  
-  obterPessoas() {
-    return this.http.get('https://example.com/pessoas');
-  }
+        const serviceInstance = new remoteModule.PessoaService(this.http);
+        return Number(await serviceInstance.obterTotalDePessoas());
+    }
+
+    obterPessoas() {
+        return this.http.get('https://example.com/pessoas');
+    }
 }
-
