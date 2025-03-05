@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -11,11 +11,16 @@ import { EscolaService } from '../../services/escola.service';
 import { PessoaService } from '../../services/pessoa.service';
 import { LocalStorageService } from '../../services/local-storage.service';
 import { MenuMaster } from '../../models/menu-master';
+import { Escola } from '../../models/escola';
+import { Pessoa } from '../../models/pessoa';
+import { ButtonModule } from 'primeng/button';
+import { AutenticacaoService } from 'autenticacao';
+import { User } from '@auth0/auth0-angular';
 
 @Component({
     selector: 'app-topbar',
     standalone: true,
-    imports: [RouterModule, CommonModule, FormsModule, StyleClassModule, Select, FloatLabel],
+    imports: [RouterModule, CommonModule, FormsModule, StyleClassModule, Select, FloatLabel, ButtonModule],
     template: ` <div class="layout-topbar">
         <div class="layout-topbar-logo-container">
             <button class="layout-menu-button layout-topbar-action" (click)="layoutService.onMenuToggle()">
@@ -66,24 +71,68 @@ import { MenuMaster } from '../../models/menu-master';
                     </p-floatlabel>
                 </div>
             </div>
+
+            @if(this.isAuthenticated) {
+                <p class="m-auto">Olá, {{ this.getName() }}</p>
+                <p-button label="Sair" variant="text" (onClick)="logout()" />
+            } 
+            @else {
+                <p-button label="Entrar" variant="text" (onClick)="login()" />
+            }
         </div>
     </div>`
 })
 export class AppTopbar {
     items!: MenuItem[];
-    escolas: any;
-    escolaSelecionada;
-    pessoas: any;
-    pessoaSelecionada;
+    escolas: Escola[];
+    escolaSelecionada: Escola | null;
+    pessoas: Pessoa[];
+    pessoaSelecionada: Pessoa | null;
+
+    isAuthenticated: boolean;
+    usuario: User | null | undefined;
 
     constructor(
         public layoutService: LayoutService,
         private escolaService: EscolaService,
         private pessoaService: PessoaService,
         private localStorageService: LocalStorageService,
+        private autenticacaoService: AutenticacaoService
     ) {
         this.obterEscolas();
         this.obterPessoas();
+        this.checkLocalStorage();
+        this.checkUsuarioLogado();
+    }
+
+    async checkUsuarioLogado() {
+        // if(this.autenticacaoService.isAuthenticated) {
+        //     this.usuario = this.autenticacaoService.user;
+        //     this.isAuthenticated = true;
+        // }
+        // this.isAuthenticated = false;
+
+        
+        await this.autenticacaoService.isAuthenticated.subscribe({ next:(v) => this.isAuthenticated = v, error: (e) => this.isAuthenticated = false});
+        await this.autenticacaoService.user.subscribe({ next:(v) => this.usuario = v, error: (e) => console.error(e)});
+        console.log("isAuthenticated", this.isAuthenticated);
+        console.log("usuario", this.usuario);
+    }
+
+    getName(): string {
+        if(!!this.usuario && !!this.usuario.name) {
+            let names = this.usuario?.name.split('@');
+            return names[0];
+        }
+        return "";
+    }
+
+    checkLocalStorage() {
+        if(this.localStorageService.possuiItem()) {
+            let menuMaster = this.localStorageService.getItem();
+            if(!!menuMaster && !!menuMaster.escola && !!menuMaster.escola.id) this.escolaSelecionada = new Escola(menuMaster.escola);
+            if(!!menuMaster && !!menuMaster.pessoa && !!menuMaster.pessoa.id) this.pessoaSelecionada = new Pessoa(menuMaster.pessoa);
+        }
     }
 
     toggleDarkMode() {
@@ -120,22 +169,37 @@ export class AppTopbar {
         if(!!escolaEvent.value && !this.checkEscolaVinculadaPessoa(escolaEvent.value)) {
             this.pessoaSelecionada = null;
             this.obterPessoas(escolaEvent.value.id);
+            this.preencheEscola(escolaEvent.value.id);
         }
         this.atualizaLocalStorage();
     }
 
     preencheEscola(escolaId) {
-        this.escolaSelecionada = this.escolas.find(e => e.id == escolaId);
+        this.escolaSelecionada = new Escola(this.escolas.find(e => e.id == escolaId));
+    }
+
+    preenchePessoa(pessoaId) {
+        this.pessoaSelecionada = new Pessoa(this.pessoas.find(e => e.id == pessoaId));
     }
 
     changePessoa(pessoaEvent) {
         if(!!pessoaEvent.value && !this.checkPessoaVinculadaEscola(pessoaEvent.value)) {
             this.preencheEscola(pessoaEvent.value.escola.id);
+            this.preenchePessoa(pessoaEvent.value.id);
         }
         this.atualizaLocalStorage();
     }
 
     atualizaLocalStorage() {
-        this.localStorageService.setItem(new MenuMaster(this.escolaSelecionada, this.pessoaSelecionada));
+        this.localStorageService.setItem(new MenuMaster({'escola': this.escolaSelecionada, 'pessoa': this.pessoaSelecionada}));
+    }
+
+
+    login() {
+        this.autenticacaoService.loginWithRedirect();
+    }
+
+    logout() {
+        this.autenticacaoService.logout();
     }
 }

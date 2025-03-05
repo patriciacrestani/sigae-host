@@ -6,6 +6,7 @@ import Lara from '@primeng/themes/lara';
 import { providePrimeNG } from 'primeng/config';
 import { appRoutes } from './app.routes';
 import { definePreset } from '@primeng/themes';
+import { provideAutenticacao } from 'autenticacao';
 
 const MyPreset = definePreset(Lara, {
     semantic: {
@@ -30,6 +31,14 @@ export const appConfig: ApplicationConfig = {
         provideRouter(appRoutes, withInMemoryScrolling({ anchorScrolling: 'enabled', scrollPositionRestoration: 'enabled' }), withEnabledBlockingInitialNavigation()),
         provideHttpClient(withFetch()),
         provideAnimationsAsync(),
-        providePrimeNG({ theme: { preset: MyPreset, options: { darkModeSelector: '.app-dark' } } })
+        providePrimeNG({ theme: { preset: MyPreset, options: { darkModeSelector: '.app-dark' } } }),
+        provideAutenticacao()
+        // provideAuth0({
+        //     domain: 'dev-p5e2nv6n34o06zgu.us.auth0.com',
+        //     clientId: 'AeBPz25AdEIxo3BWSsGMC9qhDebqpuZh',
+        //     authorizationParams: {
+        //         redirect_uri: window.location.origin
+        //     }
+        // }),
     ]
 };

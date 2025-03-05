@@ -6,6 +6,7 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { RippleModule } from 'primeng/ripple';
+import { AutenticacaoService } from 'autenticacao';
 
 @Component({
     selector: 'app-login',
@@ -23,7 +24,11 @@ import { RippleModule } from 'primeng/ripple';
                             <span class="text-muted-color font-medium">Faça login para continuar.</span>
                         </div>
 
-                        <div>
+                        <div class="flex justify-center">
+                            <p-button label="Login" icon="pi pi-arrow-right" iconPos="right" (onClick)="login()" />
+                        </div>
+
+                        <!-- <div>
                             <label for="email1" class="block text-surface-900 dark:text-surface-0 text-xl font-medium mb-2">Login</label>
                             <input pInputText id="email1" type="text" placeholder="Login" class="w-full md:w-[30rem] mb-8" [(ngModel)]="email" />
 
@@ -38,7 +43,7 @@ import { RippleModule } from 'primeng/ripple';
                                 <span class="font-medium no-underline ml-2 text-right cursor-pointer text-primary">Esqueceu sua senha?</span>
                             </div>
                             <p-button label="Entrar" styleClass="w-full" routerLink="/"></p-button>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
@@ -46,9 +51,13 @@ import { RippleModule } from 'primeng/ripple';
     `
 })
 export class Login {
-    email: string = '';
+    // email: string = '';
+    // password: string = '';
+    // checked: boolean = false;
 
-    password: string = '';
+    constructor(private autenticacaoService: AutenticacaoService) { }
 
-    checked: boolean = false;
+    login() {
+        this.autenticacaoService.loginWithRedirect();
+    }
 }

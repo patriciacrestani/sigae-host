@@ -18,7 +18,8 @@ export const PessoasMock = [
                     "escola": {
                         "id": 1,
                         "nome": "Escola A"
-                    }
+                    },
+                    "cadastroFinalizado": true
                 },
                 {
                     "id": 2,
@@ -27,7 +28,8 @@ export const PessoasMock = [
                     "escola": {
                         "id": 1,
                         "nome": "Escola A"
-                    }
+                    },
+                    "cadastroFinalizado": true
                 },
                 {
                     "id": 3,
@@ -36,7 +38,8 @@ export const PessoasMock = [
                     "escola": {
                         "id": 2,
                         "nome": "Escola B"
-                    }
+                    },
+                    "cadastroFinalizado": true
                 },
                 {
                     "id": 4,
@@ -45,7 +48,8 @@ export const PessoasMock = [
                     "escola": {
                         "id": 2,
                         "nome": "Escola B"
-                    }
+                    },
+                    "cadastroFinalizado": true
                 },
                 {
                     "id": 5,
@@ -54,7 +58,8 @@ export const PessoasMock = [
                     "escola": {
                         "id": 3,
                         "nome": "Escola C"
-                    }
+                    },
+                    "cadastroFinalizado": true
                 },
                 { 
                      "id": 6,
@@ -63,7 +68,8 @@ export const PessoasMock = [
                      "escola": {
                          "id": 3,
                          "nome": "Escola C"
-                     }
+                     },
+                     "cadastroFinalizado": true
                  },
                  {
                      "id": 7,
@@ -72,7 +78,8 @@ export const PessoasMock = [
                      "escola": {
                          "id": 4,
                          "nome": "Escola D"
-                     }
+                     },
+                     "cadastroFinalizado": true
                  },
                  {
                      "id": 8,
@@ -81,7 +88,8 @@ export const PessoasMock = [
                      "escola": {
                          "id": 4,
                          "nome": "Escola D"
-                     }
+                     },
+                     "cadastroFinalizado": true
                  },
                  {
                      "id": 9,
@@ -90,7 +98,8 @@ export const PessoasMock = [
                      "escola": {
                          "id": 5,
                          "nome": "Escola E"
-                     }
+                     },
+                     "cadastroFinalizado": true
                  },
                  {
                      "id": 10,
@@ -99,7 +108,8 @@ export const PessoasMock = [
                      "escola": {
                          "id": 5,
                          "nome": "Escola E"
-                     }
+                     },
+                     "cadastroFinalizado": true
                  }
             ],
             { status: 200 }
