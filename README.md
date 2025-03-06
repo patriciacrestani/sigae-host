@@ -42,7 +42,7 @@ A aplicação host consome microfrontends que são carregados dinamicamente. Cer
 Exemplo de configuração:
 ```ts
 {
-	"plano-acao": "http://localhost:4201/remoteEntry.json",
+"plano-acao": "http://localhost:4201/remoteEntry.json",
     "cadastros": "http://localhost:4202/remoteEntry.json"
 }
 ```
