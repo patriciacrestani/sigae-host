@@ -53,3 +53,7 @@ Exemplo de configuração:
 2. Crie uma branch para sua feature.
 3. Realize as modificações e commit.
 4. Envie um Pull Request.
+
+## Licença
+
+Este projeto está sob a licença MIT.
