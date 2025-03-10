@@ -12,9 +12,9 @@ export class HomeComponent  implements OnInit {
   @ViewChild('microfrontend', { read: ViewContainerRef }) viewContainer!: ViewContainerRef;
   
   ngOnInit() {
-    setTimeout(() => {
+    // setTimeout(() => {
       this.loadMF();
-    }, 2000);
+    // }, 2000);
   }
 
   async loadMF(): Promise<void> {

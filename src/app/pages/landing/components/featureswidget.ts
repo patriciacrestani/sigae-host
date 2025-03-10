@@ -1,17 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { EscolaService } from '../../../services/escola.service';
-import { PlanoAcaoService } from '../../../services/plano-acao.service';
 import { PessoaService } from '../../../services/pessoa.service';
-import { EventoService } from '../../../services/evento.service';
 
 @Component({
     selector: 'features-widget',
     standalone: true,
     imports: [CommonModule],
     template: ` <div id="features">
-        <div class="grid grid-cols-12 gap-4 justify-center">
-            <div class="col-span-12 md:col-span-4 p-0 lg:pr-8 lg:pb-8 mt-6 lg:mt-0">
+        <div class="grid grid-cols-2 gap-4 justify-center">
+            <div class="col-span-2 md:col-span-1 p-0 lg:pr-8 lg:pb-8 mt-6 lg:mt-0">
                 <div style="padding: 2px; border-radius: 10px; background: linear-gradient(90deg, rgba(145, 226, 237, 0.2), rgba(251, 199, 145, 0.2)), linear-gradient(180deg, rgba(253, 228, 165, 0.2), rgba(172, 180, 223, 0.2))">
                     <div class="flex flex-column items-center p-4 bg-surface-0 dark:bg-surface-900 h-full" style="border-radius: 8px">
                         <div class="flex items-center justify-center bg-cyan-200" style="width: 3.5rem; height: 3.5rem; border-radius: 10px">
@@ -25,7 +23,7 @@ import { EventoService } from '../../../services/evento.service';
                 </div>
             </div>
 
-            <div class="col-span-12 md:col-span-4 p-0 lg:pr-8 lg:pb-8 mt-6 lg:mt-0">
+            <div class="col-span-2 md:col-span-1 p-0 lg:pr-8 lg:pb-8 mt-6 lg:mt-0">
                 <div style="padding: 2px; border-radius: 10px; background: linear-gradient(90deg, rgba(145, 226, 237, 0.2), rgba(172, 180, 223, 0.2)), linear-gradient(180deg, rgba(172, 180, 223, 0.2), rgba(246, 158, 188, 0.2))">
                     <div class="flex flex-column items-center p-4 bg-surface-0 dark:bg-surface-900 h-full" style="border-radius: 8px">
                         <div class="flex items-center justify-center bg-indigo-200" style="width: 3.5rem; height: 3.5rem; border-radius: 10px">
